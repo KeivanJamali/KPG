@@ -32,7 +32,8 @@ def run_llm(query: str, chat_history: list, user_id):
 def _log_query(query, response, user_id):
     # Get current date for the filename
     # log_path = r"/home/Keivan02/mysite/log"
-    log_path = r"/mnt/Data1/Python_Projects/Pure-Python/P5/03-LLMs/1-LangChain/Part5-KPG/log"
+    log_path = Path("logs")
+    log_path.mkdir(exist_ok=True)
     date_str = datetime.now().strftime("%Y-%m-%d")
     filename = Path(f"{log_path}/{date_str}.csv")
 
