@@ -11,10 +11,10 @@ import csv
 
 
 def run_llm(query: str, chat_history: list, user_id):
-    embeddings = OpenAIEmbeddings(model="text-embedding-3-small", api_key="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")
-    docsearch = PineconeVectorStore(index_name="kpg", embedding=embeddings, pinecone_api_key="pcsk_55pftF_LW1NAowyG59juSo7YbmJ9ai6oRke15ngPBDb7TQwJqnU3e5UqJLbFA4cNs4B88W")
-    chat = ChatOpenAI(verbose=True, temperature=0, model="gpt-4.1-nano", api_key="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")
-    client = Client(api_key="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")
+    embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+    docsearch = PineconeVectorStore(index_name="kpg", embedding=embeddings)
+    chat = ChatOpenAI(verbose=True, temperature=0, model="gpt-4.1-nano")
+    client = Client()
 
     retrieval_qa_chat_prompt = client.pull_prompt("langchain-ai/retrieval-qa-chat", include_model=True)
     stuff_documents_chain = create_stuff_documents_chain(chat, retrieval_qa_chat_prompt)
