@@ -8,13 +8,17 @@ from langsmith import Client
 from datetime import datetime
 from pathlib import Path
 import csv
+import os
 
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+PINECONE_API_KEY = os.environ.get("PINECONE_API_KEY")
+LANGSMITH_API_KEY = os.environ.get("LANGSMITH_API_KEY")
 
 def run_llm(query: str, chat_history: list, user_id):
-    embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
-    docsearch = PineconeVectorStore(index_name="kpg", embedding=embeddings)
-    chat = ChatOpenAI(verbose=True, temperature=0, model="gpt-4.1-nano")
-    client = Client()
+    embeddings = OpenAIEmbeddings(model="text-embedding-3-small", api_key=OPENAI_API_KEY)
+    docsearch = PineconeVectorStore(index_name="kpg", embedding=embeddings, pinecone_api_key=PINECONE_API_KEY)
+    chat = ChatOpenAI(verbose=True, temperature=0, model="gpt-4.1-nano", api_key=OPENAI_API_KEY)
+    client = Client(api_key=LANGSMITH_API_KEY)
 
     retrieval_qa_chat_prompt = client.pull_prompt("langchain-ai/retrieval-qa-chat", include_model=True)
     stuff_documents_chain = create_stuff_documents_chain(chat, retrieval_qa_chat_prompt)
