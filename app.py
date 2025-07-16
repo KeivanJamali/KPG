@@ -36,7 +36,8 @@ def generate():
     user_id = get_user_id()
 
     try:
-        log_path = r"/home/Keivan02/mysite/log"
+        log_path = Path("logs")
+        log_path.mkdir(exist_ok=True)
         history = _get_user_history(log_folder_path=log_path, user_id=user_id)
         response = run_llm(query=query, chat_history=history, user_id=user_id)
 
