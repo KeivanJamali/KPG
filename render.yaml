@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: langchain-api
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python app.py"
+    envVars:
+      - key: OPENAI_API_KEY
+        value: sk-xxx-your-key
+      - key: PINECONE_API_KEY
+        value: pcsk-xxx-your-key
+      - key: LANGSMITH_API_KEY
+        value: lsv2-xxx-your-key
+      - key: FLASK_ENV
+        value: production
